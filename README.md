@@ -1,2 +1,5 @@
-# TCC
-Repositório destinado à disciplina de Projeto Científico do curso de Ciência da Computação da FCT Unesp.
+# Tema: Aprendizado profundo na detecção de defeitos ferroviários
+
+## Orientador: Rogério Garcia
+
+## Orientado: Miguel de Campos Rodrigues Moret

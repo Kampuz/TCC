@@ -1,0 +1,154 @@
+\section{Metodologia}
+
+\subsection{Conjunto de dados}
+
+
+Um dos conjuntos utilizados neste trabalho será o \textit{Railway Track fault Detection Resized (224 X 224)}, disponibilizado na plataforma Kaggle por \textcite{gpiosenka_railway_2022}.
+Trata-se de uma versão redimensionada do conjunto original \textit{Railway Track Fault Detection} disponibilizado por \textcite{hossain2021railway}, também na plataforma Kaggle.
+
+As imagens originais possuem alta resolução, o que torna o pré-processamento custoso, por esse motivo o dataset foi redimensionado com todas as imagens reduzidas para 244x244x3, facilitando seu uso, também foi incluido um arquivo \textit{rails.csv}, que simplifica o carregamento e a organização das amostras \cite{gpiosenka_railway_2022}.
+
+Também será utilizado o dataset \textit{Railway Track Fault Detection | Dataset2(Fastener)}, disponibilizado na plataforma Kaggle por \textcite{ashikadnan_railway_2021}.
+Porém, ao contrário do conjunto anterior, esse conjunto contém apenas imagens de pinos de fixação e não foi redimensionado.
+
+Ambos os datasets são compostos pelo mesmo número de imagens com e sem anomalias.
+O conjunto de \textcite{gpiosenka_railway_2022} contém 384 imagens de trilhos divididas entre 300 imagens de treinamento, 22 imagens de teste e 62 imagens de validação. Esse conjunto contém tres tipos de anomalias:  ausência de pinos de fixação, deformações e rachaduras nos trilho e danos na fundação do trilho (parte de madeira transversal ao trilho).
+Enquanto que o conjunto de \textcite{ashikadnan_railway_2021} contém 1399 imagens de pinos de fixação divididas entre 980 imagens de treinamento, 140 imagens de teste 280 imagens de validação
+
+Como mencionado anteriormente, o segundo dataset não foi previamente redimensionado. Portanto suas imagens serão ajustadas para o formato 224x244x3,a fim de padronizar as dimensões e minimizar a heterogeneidade entre os diferentes conjuntos de dados.
+
+\begin{figure}[H]
+    \caption{Conjunto de imagens do segundo dataset em grade 1x2}
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{images/dataset/2defeituoso.jpg}
+        \caption{Defeituoso}
+        \label{fig:img1 dataset2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{images/dataset/2ok.jpg}
+        \caption{Sem defeito}
+        \label{fig:img2 dataset2}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{Conjunto de imagens do primeiro dataset em grade 2x2}
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{images/dataset/boas condicoes.jpg}
+        \caption{Sem defeito}
+        \label{fig:img1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{images/dataset/falta pino.jpg}
+        \caption{Defeituoso (ausência de pino superior)}
+        \label{fig:img2}
+    \end{subfigure}
+    
+    \vspace{0.25cm}
+    
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{images/dataset/fundacao.jpeg}
+        \caption{Defeituoso (fundação)}
+        \label{fig:img3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=1\linewidth]{images/dataset/rachadura.jpg}
+        \caption{Defeituoso (deformação nos trilhos)}
+        \label{fig:img4}
+    \end{subfigure}
+    
+    \fonteimagem{Fonte: \textcite{gpiosenka_railway_2022}}
+    \label{fig:grade4}
+\end{figure}
+
+
+\subsection{Modelos}
+
+Os seguintes métodos serão analísados:
+
+\begin{itemize}
+    \item \textbf{ResNet} (emprega conexões residuais para facilitar o treinamento de redes profundas);
+    \item \textbf{InceptionV3} (utiliza blocos com múltiplos filtros paralelos para capturar padrões em diferentes escalas);
+    \item \textbf{MobileNetV3} (adota convoluções separáveis e blocos otimizados para dispositivos de baixo custo computacional);
+
+    \item \textbf{CNN + SVM} (a CNN extrai características e a SVM classifica, funcionando como baseline simples e interpretável);
+
+    \item \textbf{ViT – Vision Transformer} (divide a imagem em patches e usa autoatenção global para capturar dependências longas);
+    \item \textbf{DeiT} (versão otimizada do ViT com treinamento mais eficiente e menor necessidade de dados);
+    \item \textbf{Swin Transformer} (utiliza janelas de autoatenção deslizantes e hierárquicas para reduzir custo computacional);
+
+    \item \textbf{ConViT} (combina convoluções com autoatenção, introduzindo “soft convolution” para transição suave entre ambos);
+    \item \textbf{MobileViT} (integra blocos MobileNet com módulos tipo Transformer, oferecendo baixo custo e atenção global);
+
+    \item \textbf{Rail-Former} (usa encoder–decoder com autoatenção e módulo Criss-Cross para preservar detalhes finos de defeitos ferroviários);
+    \item \textbf{TrackNet} (aplica autoatenção multi-head e transferência de aprendizado para melhorar detecção em trilhos com dados limitados).
+\end{itemize}
+
+\subsection{Resultados Esperados}
+
+Espera-se que os modelos desenvolvidos sejam capazes de identificar, com precisão alta, os diferentes tipos de defeitos presentes nas imagens do conjunto de dados.
+De forma geral, os resultados esperados incluem:
+
+\begin{itemize}
+\item Os modelos baseados em aprendizado profundo obtenham desempenho superior aos métodos clássicos em troca de um maior custo computacional.
+\item As arquiteturas que utilizam transferência de aprendizado apresentem resultados mais estáveis e eficientes mesmo com um conjunto de dados limitado.
+\item Os modelos devem demonstrar capacidade de generalização,  consistente mesmo diante de variações de iluminação, ângulo ou ruído.
+\item A análise comparativa identificar quais arquiteturas são mais adequadas para detecção automática de defeitos ferroviários e justificar suas vantagens técnicas.
+\end{itemize}
+
+\subsection{Avaliação dos Resultados}
+
+Os resultados dos testes serão obtidos através de uma matriz de confusão, que organiza as predições do modelo em quatro categorias fundaamentais: verdadeiros positivos (TP) falsos positivos (FP), verdadeiros negativos (TN) e falsos negativos (FN).
+Essa estrutura permite avaliar não apenas o desempenho geral do classificador, mas também entender em quais situações ele tende a errar.
+
+\begin{figure}[H]
+    \centering
+    \caption{Imagem mostrando o exemplo de uma matriz de confusão}
+    \includegraphics[width=0.5\linewidth]{images/matriz de confusão.png}\\
+    \fonteimagem{Fonte: \textcite{brains2023performance}}
+    \label{fig:matriz de confusão}
+\end{figure}
+
+A partir da matriz de confusão, quatro métricas amplamente utilizadas na avaliação de modelos de classificação serão calculadas:
+
+\begin{itemize}
+    \item \textbf{Acurácia} (Accuracy) \\
+    Mede a proporção de classificações corretas em relação ao total de predições realizadas, sendo utilizada para analisar o desempenho dos modelos de forma geral.
+    \[
+        A = \frac{TP + TN}{TP + FP + FN +TN}
+    \]
+
+    \item \textbf{Precisão} (Precision)\\
+    Mede a proporção de positivos verdadeiros entre todas as predições positivas, sendo utilizada para avaliar o grau de confiabilidade das detecções positivas.
+    \[
+        P = \frac{TP}{TP + FP}
+    \]
+
+    \item \textbf{Revocação} (Recall) \\
+    Mede a capacidade do modelo de recuperar os positivos reais, avaliando o quanto o modelo deixa de detectar casos positivos.
+    \[
+        R = \frac{TP}{TP + FN}
+    \]
+    
+    \item \textbf{F1-score} \\
+    Média harmônica entre precisão e revocação.
+    Resume ambas as métricas em um único valor equilibrado.
+    Amplamente utilizada na literatura de machine learning.
+    \[
+        F1 = 2 \cdot \frac{P \cdot R}{P + R}
+    \]
+\end{itemize}
+
+Após a obtenção dos resultados, será realizada uma comparação com os estudos presentes na literatura, analisando como os diferentes modelos se comportaram no contexto deste trabalho em relação ao desempenho observado em suas aplicações originais.
+Essa análise permitirá identificar em que medida fatores como domínio domínio dos dados, condições de captura das imagens e complexidade das anomalias influenciam o desempenho das arquiteturas, além de evidenciar quais modelos apresentam maior capacidade de generalização para o cenário de detecção de falhas em trilhos ferroviários.
