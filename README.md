@@ -1,2 +1,2 @@
 # TCC
-Repositório destinado à disciplina de Projeto Cientifico do curso de Ciencia da Computação da FCT Unesp.
+Repositório destinado à disciplina de Projeto Científico do curso de Ciência da Computação da FCT Unesp.
