@@ -1,8 +1,45 @@
 \section{Metodologia e plano de trabalho}
-\comentario{    
-    Inicialmente, será conduzido um estudo teórico aprofundado sobre o tema, abrangendo métodos de aprendizado profundo, com ênfase em Máquina de Vetores de Suporte (SVM), dado o maior volume de pesquisas na área, e em Redes Neurais, reconhecida como uma das mais promissoras, mais ainda pouco explorada no contexto ferroviário. Além disso, serão estudadas técnicas de análise de dados e o funcionamento das linhas férreas brasileiras.
-    
-    Na etapa seguinte, serão realizadas a coleta e organização dos dados do setor ferroviário, com possível adequação ao padrão \textit{General Transit Feed Specification} (GTFS, Especificação Geral de Feed de Transporte Público), caso necessário. \cite{SARHANI2024100120}
-    
-    Em seguida, serão aplicados os métodos relevantes sobre os dados coletados. Por fim, será elaborado um artigo científico com o objetivo de relatar os resultados obtidos e discutir as contribuições do trabalho.
-}
+    A metodologia será organizada em seis fases distintas, com detalhamento das atividades em cada uma:
+
+    \subsection{Fase 1 - Preparação (Meses 1-2)}
+        \begin{itemize}
+            \item Levantamento de literatura em teste automatizado: pesquisa de artigos e livros sobre geração de testes em Java (EvoSuite [3], Randoop [10], PEX [4]). Análise de abordagens baseadas em algoritmos evolutivos, fuzzing e análise simbólica.
+            \item Revisão sobre LLMs para geração de código e testes: leitura de trabalhos recentes (Chen et al., 2021 [1]; Chen et al., 2023 [2]; Moradi Dakhel et al., 2023 [8]; Gu et al., 2024 [5]; Steenhoek et al., 2024 [13]), identificando métodos, resultados e lacunas.
+            \item Consolidação de métricas de cobertura: estudo de ferramentas JaCoCo [6], Cobertura [15] e EclEmma [14] para extração de métricas de cobertura de instruções, ramos, definições-uso e usos.
+            \item Mini-relatório de referência: documentação das descobertas teóricas, definindo estado da arte e justificando a proposta.
+        \end{itemize}
+    \subsection{Fase 2 - Seleção de Modelos de Linguagem e Ambiente Experimental (Mês 3)}
+        \begin{enumerate}
+            \item Escolha de LLM(s): avaliação de modelos proprietários (OpenAI GPT-4, via API) e open-source (Code Llama, GPT-NeoX), observando custo, licenciamento e infraestrutura necessária.
+            \item Configuração do ambiente de experimento: obtenção de chave API ou instalação local de modelo, instalação de bibliotecas Python (OpenAI SDK [9], Transformers [12], PyTorch [11]) e ferramentas Java (JUnit 5 [7], JaCoCo, Maven/Gradle).
+            \item Criação de repositório versionado (Git): estruturação inicial com scripts de geração e diretórios para testes.
+            \item Implementação de script-protótipo: script (Python ou Shell) que receba arquivo Java de um método, forme prompt e envie ao LLM, armazenando o teste JUnit gerado.
+            \item Validação inicial de geração: testes com métodos simples (cálculo de fatorial, busca binária) para verificar compilação e execução.
+        \end{enumerate}
+    \subsection{Fase 3 - Definição de Conjunto de Métodos-Alvo (Meses 4-5)}
+        \begin{enumerate}
+            \item Seleção de 30 métodos Java: escolha em projetos open-source de métodos com diversos padrões de controle (condicionais aninhados, laços, recursão, streams, exceções).
+            \item Análise manual de cobertura esperada: mapeamento de todos os caminhos lógicos e pontos de definições-uso de variáveis para cada método, incluindo cálculo da complexidade ciclomática.
+            \item Documentação em planilha: registro de nomes de métodos, complexidade, número de caminhos e variáveis críticas para def-use e dados auxiliares.
+        \end{enumerate}
+    \subsection{Fase 4 - Geração e Execução de Testes com LLM (Meses 6-7)}
+        \begin{enumerate}
+            \item Construção de prompts de geração: elaboração de instruções em linguagem natural detalhando o método-fonte e solicitando a criação de testes JUnit que cubram todos os caminhos ou definições-uso.
+            \item Refinamento iterativo de prompts: ajustes nas instruções para lidar com cenários específicos (cobertura de exceções, valores de entrada extremados, variáveis críticas).
+            \item Execução automatizada em lote: pipeline que percorra a lista de métodos, envie prompts ao LLM e armazene arquivos \texttt{.java} com classes de teste JUnit correspondentes.
+            \item Configuração de projeto Java: estrutura Maven/Gradle que inclua código-fonte original e testes gerados, possibilitando compilação e execução unificada via comando.
+            \item Primeira medição de cobertura: integração do plugin JaCoCo no build, execução de todos os testes e geração de relatórios (HTML, XML, CSV) contendo métricas de cobertura de instruções e ramos.
+        \end{enumerate}
+    \subsection{Fase 5 - Avaliação e Ajuste Fino (Meses 8-9)}
+        \begin{enumerate}
+            \item Análise de relatórios de cobertura: comparativo entre cobertura obtida pelo LLM e cobertura teórica (documentada na fase 3); identificação de lacunas (caminhos não cobertos, usos faltantes).
+            \item Comparação com ferramentas tradicionais: execução do EvoSuite [3] para cada método, geração de testes automáticos e medição de cobertura via JaCoCo; compilação de tabela comparativa entre LLM e EvoSuite.
+            \item Refinamento de prompts: para métodos com cobertura insuficiente, ajustes nos prompts (inclusão de exemplos, templates restritos) e nova execução do pipeline.
+            \item Avaliação qualitativa dos testes gerados: análise de legibilidade, aderência a boas práticas de JUnit (uso correto de anotações, asserts descritivos) e presença de ``test smells''; registro de conclusões em relatório.
+        \end{enumerate}
+    \subsection{Fase 6 - Análise Final, Documentação e Disseminação (Meses 10-12)}
+        \begin{enumerate}
+            \item Consolidação de dados: organização de resultados quantitativos (planilhas, gráficos comparativos de cobertura) e elaboração de considerações iniciais.
+            \item Redação do relatório técnico final: capítulos: Introdução, Fundamentação Teórica, Metodologia, Resultados e Discussão, Conclusão e Trabalhos Futuros.
+            \item Preparação de artigo científico: formatação conforme conferência alvo (SBES, ECsoft), incluindo seções de Related Work, Proposed Approach, Experiment Setup, Results, Threats to Validity e Final Remarks.
+        \end{enumerate}
