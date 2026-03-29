@@ -1,16 +1,11 @@
 \section{Objetivos do projeto}
 \subsection{Objetivos gerais}
-\comentario{
-    Este projeto tem como objetivo realizar estudos sobre o uso de inteligência artificial e ciência de dados aplicadas ao setor ferroviário, com foco em previsão e otimização de operações.
-}
+    Investigar e demonstrar como utilizar Modelos de Linguagem de Grande Porte (LLMs) para a geração automática de casos de teste unitários em Java, integrados ao framework JUnit, de modo a satisfazer múltiplos critérios avançados de cobertura de código-fonte (all-paths, all-defs-uses, all-uses)
 
 \subsection{Objetivos específicos}
 
 \begin{itemize}
-\comentario{
-    \item 1. Estudar e aplicar conceitos relacionados à inteligência artificial e ciência de dados, estudados na graduação, assim como previsão em sistemas de transporte.
-    \item 2. Realizar levantamento e análise de dados do setor ferroviário brasileiro.
-    \item 3. Aplicar métodos de aprendizado de máquina para previsão de atrasos, falhas e demandas operacionais.
-    \item 4. Comparar os resultados obtidos com trabalhos similares na literatura, identificando vantagens e limitações.
-}
+    \item Construir um pipeline que, dado o código-fonte de um método em Java, gere automaticamente casos de teste JUnit por meio de LLM.
+    \item Avaliar a cobertura dos testes gerados usando ferramentas como JaCoCo (ou Cobertura/EclEmma), medindo cobertura de instruções, ramos (branches), definições-uso e usos.
+    \item Comparar cobertura e qualidade dos testes gerados via LLM com testes gerados por ferramentas tradicionais (EvoSuite) e com testes manuais, identificando pontos fortes e limitações.
 \end{itemize}
