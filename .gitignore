@@ -9,3 +9,7 @@
 *.run.*
 *.toc
 *.bbl
+latexmkrc
+*.bbl
+*.bbl-*
+*.nlo
