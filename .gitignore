@@ -13,3 +13,4 @@ latexmkrc
 *.bbl
 *.bbl-*
 *.nlo
+*.lol
