@@ -3,11 +3,11 @@
 
     \subsection{Fase 1 - Fundamentação e Configuração do Ambiente (Semestre 1)}
         \begin{itemize}
-            \item Levantamento de literatura em teste automatizado: pesquisa de artigos e livros sobre geração de testes em Java (EvoSuite [3], Randoop [10], PEX [4]). Análise de abordagens baseadas em algoritmos evolutivos, fuzzing e análise simbólica.
-            \item Revisão sobre LLMs para geração de código e testes: leitura de trabalhos recentes (Chen et al., 2021 [1]; Chen et al., 2023 [2]; Moradi Dakhel et al., 2023 [8]; Gu et al., 2024 [5]; Steenhoek et al., 2024 [13]), identificando métodos, resultados e lacunas.
-            \item Consolidação de métricas de cobertura: estudo de ferramentas JaCoCo [6], Cobertura [15] e EclEmma [14] para extração de métricas de cobertura de instruções, ramos, definições-uso e usos.
+            \item Levantamento de literatura em teste automatizado: pesquisa de artigos e livros sobre geração de testes em Java (EvoSuite \cite{fraser2011evosuite}, Randoop \cite{pacheco2007randoop}, PEX). Análise de abordagens baseadas em algoritmos evolutivos, fuzzing e análise simbólica.
+            \item Revisão sobre LLMs para geração de código e testes: leitura de trabalhos recentes (\cite{chen2021evaluating}; \cite{chen2023chatunitest}; \cite{moradidakhel2023effective}; \cite{gu2024testART}; \cite{steenhoek2024reinforcement}), identificando métodos, resultados e lacunas.
+            \item Consolidação de métricas de cobertura: estudo de ferramentas JaCoCo \cite{jacoco2023}, Cobertura \cite{cobertura2022} e EclEmma \cite{eclemma2023} para extração de métricas de cobertura de instruções, ramos, definições-uso e usos.
             \item Escolha de LLM(s): avaliação de modelos proprietários (OpenAI GPT-4, via API) e open-source (Code Llama, GPT-NeoX), observando custo, licenciamento e infraestrutura necessária.
-            \item Configuração do ambiente de experimento: obtenção de chave API ou instalação local de modelo, instalação de bibliotecas Python (OpenAI SDK [9], Transformers [12], PyTorch [11]) e ferramentas Java (JUnit 5 [7], JaCoCo, Maven/Gradle).
+            \item Configuração do ambiente de experimento: obtenção de chave API ou instalação local de modelo, instalação de bibliotecas Python (OpenAI SDK \cite{junit52023}, Transformers \cite{wolf2020transformers}, PyTorch \cite{paszke2019pytorch}) e ferramentas Java (JUnit 5 \cite{junit52023}, JaCoCo, Maven/Gradle).
             \item Criação de repositório versionado (Git): estruturação inicial com scripts de geração e diretórios para testes.
             \item Implementação de script-protótipo: script (Python ou Shell) que receba arquivo Java de um método, forme prompt e envie ao LLM, armazenando o teste JUnit gerado.
             \item Validação inicial de geração: testes com métodos simples (cálculo de fatorial, busca binária) para verificar compilação e execução.
@@ -27,7 +27,7 @@
     \subsection{Fase 3 - Avaliação, Documentação e Disseminação (Semestre 3)}
         \begin{itemize}
             \item Análise de relatórios de cobertura: comparativo entre cobertura obtida pelo LLM e cobertura teórica (documentada na fase 2); identificação de lacunas (caminhos não cobertos, usos faltantes).
-            \item Comparação com ferramentas tradicionais: execução do EvoSuite [3] para cada método, geração de testes automáticos e medição de cobertura via JaCoCo; compilação de tabela comparativa entre LLM e EvoSuite.
+            \item Comparação com ferramentas tradicionais: execução do EvoSuite \cite{fraser2011evosuite} para cada método, geração de testes automáticos e medição de cobertura via JaCoCo; compilação de tabela comparativa entre LLM e EvoSuite.
             \item Refinamento de prompts: para métodos com cobertura insuficiente, ajustes nos prompts (inclusão de exemplos, templates restritos) e nova execução do pipeline.
             \item Avaliação qualitativa dos testes gerados: análise de legibilidade, aderência a boas práticas de JUnit (uso correto de anotações, asserts descritivos) e presença de ``test smells''; registro de conclusões em relatório.
             \item Consolidação de dados: organização de resultados quantitativos (planilhas, gráficos comparativos de cobertura) e elaboração de considerações iniciais.
